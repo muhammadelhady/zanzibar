@@ -1,7 +1,7 @@
 {
 	"endpointType": "tchannel",
-	"endpointId": "bazTChannel",
-	"handleId": "call",
+	"endpointID": "bazTChannel",
+	"handleID": "call",
 	"thriftFile": "endpoints/tchannel/baz/baz.thrift",
 	"thriftFileSha": "{{placeholder}}",
 	"thriftMethodName": "SimpleService::Call",

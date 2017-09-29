@@ -12,9 +12,9 @@
 	"MiddlewareConfigDir": "./middlewares/middleware-config.json",
 	"Endpoints": {
 		"bar.argNotStruct": {
-			"endpointId": "bar",
+			"endpointID": "bar",
 			"endpointType": "http",
-			"handleId": "argNotStruct",
+			"handleID": "argNotStruct",
 			"thriftFile": "endpoints/bar/bar.thrift",
 			"thriftMethodName": "Bar::argNotStruct",
 			"workflowType": "httpClient",
@@ -26,9 +26,9 @@
 			"resHeaderMap": null
 		},
 		"bar.argWithHeaders": {
-			"endpointId": "bar",
+			"endpointID": "bar",
 			"endpointType": "http",
-			"handleId": "argWithHeaders",
+			"handleID": "argWithHeaders",
 			"thriftFile": "endpoints/bar/bar.thrift",
 			"thriftMethodName": "Bar::argWithHeaders",
 			"workflowType": "httpClient",
@@ -40,9 +40,9 @@
 			"resHeaderMap": null
 		},
 		"bar.argWithManyQueryParams": {
-			"endpointId": "bar",
+			"endpointID": "bar",
 			"endpointType": "http",
-			"handleId": "argWithManyQueryParams",
+			"handleID": "argWithManyQueryParams",
 			"thriftFile": "endpoints/bar/bar.thrift",
 			"thriftMethodName": "Bar::argWithManyQueryParams",
 			"workflowType": "httpClient",
@@ -54,9 +54,9 @@
 			"resHeaderMap": null
 		},
 		"bar.argWithNestedQueryParams": {
-			"endpointId": "bar",
+			"endpointID": "bar",
 			"endpointType": "http",
-			"handleId": "argWithNestedQueryParams",
+			"handleID": "argWithNestedQueryParams",
 			"thriftFile": "endpoints/bar/bar.thrift",
 			"thriftMethodName": "Bar::argWithNestedQueryParams",
 			"workflowType": "httpClient",
@@ -68,9 +68,9 @@
 			"resHeaderMap": null
 		},
 		"bar.argWithParams": {
-			"endpointId": "bar",
+			"endpointID": "bar",
 			"endpointType": "http",
-			"handleId": "argWithParams",
+			"handleID": "argWithParams",
 			"thriftFile": "endpoints/bar/bar.thrift",
 			"thriftMethodName": "Bar::argWithParams",
 			"workflowType": "httpClient",
@@ -82,9 +82,9 @@
 			"resHeaderMap": null
 		},
 		"bar.argWithQueryHeader": {
-			"endpointId": "bar",
+			"endpointID": "bar",
 			"endpointType": "http",
-			"handleId": "argWithQueryHeader",
+			"handleID": "argWithQueryHeader",
 			"thriftFile": "endpoints/bar/bar.thrift",
 			"thriftMethodName": "Bar::argWithQueryHeader",
 			"workflowType": "httpClient",
@@ -96,9 +96,9 @@
 			"resHeaderMap": null
 		},
 		"bar.argWithQueryParams": {
-			"endpointId": "bar",
+			"endpointID": "bar",
 			"endpointType": "http",
-			"handleId": "argWithQueryParams",
+			"handleID": "argWithQueryParams",
 			"thriftFile": "endpoints/bar/bar.thrift",
 			"thriftMethodName": "Bar::argWithQueryParams",
 			"workflowType": "httpClient",
@@ -110,9 +110,9 @@
 			"resHeaderMap": null
 		},
 		"bar.missingArg": {
-			"endpointId": "bar",
+			"endpointID": "bar",
 			"endpointType": "http",
-			"handleId": "missingArg",
+			"handleID": "missingArg",
 			"thriftFile": "endpoints/bar/bar.thrift",
 			"thriftMethodName": "Bar::missingArg",
 			"workflowType": "httpClient",
@@ -124,9 +124,9 @@
 			"resHeaderMap": null
 		},
 		"bar.noRequest": {
-			"endpointId": "bar",
+			"endpointID": "bar",
 			"endpointType": "http",
-			"handleId": "noRequest",
+			"handleID": "noRequest",
 			"thriftFile": "endpoints/bar/bar.thrift",
 			"thriftMethodName": "Bar::noRequest",
 			"workflowType": "httpClient",
@@ -138,9 +138,9 @@
 			"resHeaderMap": null
 		},
 		"bar.normal": {
-			"endpointId": "bar",
+			"endpointID": "bar",
 			"endpointType": "http",
-			"handleId": "normal",
+			"handleID": "normal",
 			"thriftFile": "endpoints/bar/bar.thrift",
 			"thriftMethodName": "Bar::normal",
 			"workflowType": "httpClient",
@@ -152,9 +152,9 @@
 			"resHeaderMap": null
 		},
 		"bar.tooManyArgs": {
-			"endpointId": "bar",
+			"endpointID": "bar",
 			"endpointType": "http",
-			"handleId": "tooManyArgs",
+			"handleID": "tooManyArgs",
 			"thriftFile": "endpoints/bar/bar.thrift",
 			"thriftMethodName": "Bar::tooManyArgs",
 			"workflowType": "httpClient",
@@ -166,9 +166,9 @@
 			"resHeaderMap": null
 		},
 		"baz.call": {
-			"endpointId": "baz",
+			"endpointID": "baz",
 			"endpointType": "http",
-			"handleId": "call",
+			"handleID": "call",
 			"thriftFile": "endpoints/baz/baz.thrift",
 			"thriftMethodName": "SimpleService::call",
 			"workflowType": "tchannelClient",
@@ -180,9 +180,9 @@
 			"resHeaderMap": null
 		},
 		"baz.compare": {
-			"endpointId": "baz",
+			"endpointID": "baz",
 			"endpointType": "http",
-			"handleId": "compare",
+			"handleID": "compare",
 			"thriftFile": "endpoints/baz/baz.thrift",
 			"thriftMethodName": "SimpleService::compare",
 			"workflowType": "tchannelClient",
@@ -194,9 +194,9 @@
 			"resHeaderMap": null
 		},
 		"baz.ping": {
-			"endpointId": "baz",
+			"endpointID": "baz",
 			"endpointType": "http",
-			"handleId": "ping",
+			"handleID": "ping",
 			"thriftFile": "endpoints/baz/baz.thrift",
 			"thriftMethodName": "SimpleService::ping",
 			"workflowType": "tchannelClient",
@@ -208,9 +208,9 @@
 			"resHeaderMap": null
 		},
 		"baz.sillyNoop": {
-			"endpointId": "baz",
+			"endpointID": "baz",
 			"endpointType": "http",
-			"handleId": "sillyNoop",
+			"handleID": "sillyNoop",
 			"thriftFile": "endpoints/baz/baz.thrift",
 			"thriftMethodName": "SimpleService::sillyNoop",
 			"workflowType": "tchannelClient",
@@ -222,9 +222,9 @@
 			"resHeaderMap": null
 		},
 		"bazTChannel.call": {
-			"endpointId": "bazTChannel",
+			"endpointID": "bazTChannel",
 			"endpointType": "tchannel",
-			"handleId": "call",
+			"handleID": "call",
 			"thriftFile": "endpoints/tchannel/baz/baz.thrift",
 			"thriftMethodName": "SimpleService::Call",
 			"workflowType": "custom",
@@ -236,9 +236,9 @@
 			"resHeaderMap": null
 		},
 		"contacts.saveContacts": {
-			"endpointId": "contacts",
+			"endpointID": "contacts",
 			"endpointType": "http",
-			"handleId": "saveContacts",
+			"handleID": "saveContacts",
 			"thriftFile": "endpoints/contacts/contacts.thrift",
 			"thriftMethodName": "Contacts::saveContacts",
 			"workflowType": "custom",
@@ -250,9 +250,9 @@
 			"resHeaderMap": null
 		},
 		"googlenow.addCredentials": {
-			"endpointId": "googlenow",
+			"endpointID": "googlenow",
 			"endpointType": "http",
-			"handleId": "addCredentials",
+			"handleID": "addCredentials",
 			"thriftFile": "endpoints/googlenow/googlenow.thrift",
 			"thriftMethodName": "GoogleNow::addCredentials",
 			"workflowType": "httpClient",
@@ -264,9 +264,9 @@
 			"resHeaderMap": null
 		},
 		"googlenow.checkCredentials": {
-			"endpointId": "googlenow",
+			"endpointID": "googlenow",
 			"endpointType": "http",
-			"handleId": "checkCredentials",
+			"handleID": "checkCredentials",
 			"thriftFile": "endpoints/googlenow/googlenow.thrift",
 			"thriftMethodName": "GoogleNow::checkCredentials",
 			"workflowType": "httpClient",

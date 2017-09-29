@@ -1,14 +1,41 @@
 {
 	"endpointType": "http",
-	"endpointId": "bar",
-	"handleId": "noRequest",
+	"endpointID": "bar",
+	"handleID": "noRequest",
 	"thriftFile": "endpoints/bar/bar.thrift",
 	"thriftFileSha": "{{placeholder}}",
 	"thriftMethodName": "Bar::noRequest",
 	"workflowType": "httpClient",
 	"clientID": "bar",
 	"clientMethod": "NoRequest",
-	"testFixtures": [],
+	"testFixtures": {
+		"successfulRequest": {
+			"testName": "successfulRequest",
+			"testServiceName": "example-gateway",
+			"endpointID": "bar",
+			"handleID": "noRequest",
+			"endpointRequest": {},
+			"endpointReqHeaders": {},
+			"endpointResponse": {},
+			"endpointResHeaders": {},
+			"clientTestFixtures": {
+				"bar::noRequest": {
+					"clientID": "bar",
+					"clientMethod": "noRequest",
+					"clientRequest": {},
+					"clientReqHeaders": {},
+					"clientResponse": {
+						"stringField": "foo",
+						"intWithRange": 0,
+						"intWithoutRange": 1,
+						"mapIntWithRange": {},
+						"mapIntWithoutRange": {}
+					},
+					"clientResHeaders": {}
+				}
+			}
+		}
+	},
 	"middlewares": [],
 	"reqHeaderMap": {},
 	"resHeaderMap": {}

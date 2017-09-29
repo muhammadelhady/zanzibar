@@ -1,18 +1,18 @@
 {
-	"endpointId": "baz",
+	"endpointID": "baz",
 	"endpointType": "http",
-	"handleId": "compare",
+	"handleID": "compare",
 	"thriftFile": "endpoints/baz/baz.thrift",
 	"thriftFileSha": "{{placeholder}}",
 	"thriftMethodName": "SimpleService::compare",
 	"workflowType": "tchannelClient",
 	"clientID": "baz",
 	"clientMethod": "Compare",
-	"testFixtures": [
-		{
+	"testFixtures": {
+		"successfulRequest": {
 			"testName": "successfulRequest",
-			"endpointId": "baz",
-			"handlerId": "compare",
+			"endpointID": "baz",
+			"handleID": "compare",
 			"endpointRequest": {
 				"arg1": {
 					"b1": true,
@@ -25,34 +25,26 @@
 					"s2": "hola"
 				}
 			},
-			"endpointRequestString": "",
 			"endpointReqHeaders": {},
-			"endpointReqHeaderKeys": null,
 			"endpointResponse": {
 				"message": "different"
 			},
-			"endpointResponseString": "",
 			"endpointResHeaders": {},
-			"endpointResHeaderKeys": null,
-			"clientStubs": [
-				{
-					"clientId": "baz",
+			"clientTestFixtures": {
+				"baz::compare": {
+					"clientID": "baz",
 					"clientMethod": "compare",
 					"clientRequest": {},
-					"clientRequestString": "",
 					"clientReqHeaders": {},
-					"clientReqHeaderKeys": null,
 					"clientResponse": {
 						"message": "different"
 					},
-					"clientResponseString": "",
-					"clientResHeaders": {},
-					"clientResHeaderKeys": null
+					"clientResHeaders": {}
 				}
-			],
+			},
 			"testServiceName": "example-gateway"
 		}
-	],
+	},
 	"middlewares": [],
 	"reqHeaderMap": {},
 	"resHeaderMap": {}

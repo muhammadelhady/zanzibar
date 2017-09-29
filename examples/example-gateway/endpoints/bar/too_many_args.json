@@ -1,21 +1,70 @@
 {
 	"endpointType": "http",
-	"endpointId": "bar",
-	"handleId": "tooManyArgs",
+	"endpointID": "bar",
+	"handleID": "tooManyArgs",
 	"thriftFile": "endpoints/bar/bar.thrift",
 	"thriftFileSha": "{{placeholder}}",
 	"thriftMethodName": "Bar::tooManyArgs",
 	"workflowType": "httpClient",
 	"clientID": "bar",
 	"clientMethod": "TooManyArgs",
-	"testFixtures": [],
+	"testFixtures": {
+		"successfulRequest": {
+			"testName": "successfulRequest",
+			"testServiceName": "example-gateway",
+			"endpointID": "bar",
+			"handleID": "tooManyArgs",
+			"endpointRequest": {
+				"request": {
+					"stringField": "foo",
+					"boolField": true
+				}
+			},
+			"endpointReqHeaders": {
+				"X-Uuid": "test-uuid",
+				"X-Token": "test-token"
+			},
+			"endpointResponse": {},
+			"endpointResHeaders": {
+				"X-Uuid": "test-uuid",
+				"X-Token": "test-token"
+			},
+			"clientTestFixtures": {
+				"bar::tooManyArgs": {
+					"clientID": "bar",
+					"clientMethod": "tooManyArgs",
+					"clientRequest": {
+						"request": {
+							"stringField": "foo",
+							"boolField": true
+						}
+					},
+					"clientReqHeaders": {
+						"X-Uuid": "test-uuid",
+						"X-Token": "test-token"
+					},
+					"clientResponse": {
+						"stringField": "foo",
+						"intWithRange": 0,
+						"intWithoutRange": 1,
+						"mapIntWithRange": {},
+						"mapIntWithoutRange": {}
+					},
+					"clientResHeaders": {
+						"X-Uuid": "test-uuid",
+						"X-Token": "test-token"
+					}
+				}
+			}
+		}
+	},
 	"middlewares": [],
 	"reqHeaderMap": {
-		"X-Uuid": "X-Uuid", 
+		"X-Uuid": "X-Uuid",
 		"X-Token": "X-Token"
 	},
 	"resHeaderMap": {
-		"X-Uuid": "X-Uuid", 
+		"X-Uuid": "X-Uuid",
 		"X-Token": "X-Token"
-	}	
+	}
 }

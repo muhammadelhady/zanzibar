@@ -1,34 +1,26 @@
-[
-	{
+{
+	"successfulRequest": {
 		"testName": "successfulRequest",
-		"endpointId": "bar",
-		"handlerId": "argNotStruct",
+		"endpointID": "bar",
+		"handleID": "argNotStruct",
 		"endpointRequest": {
 			"request": "foo"
 		},
-		"endpointRequestString": "",
 		"endpointReqHeaders": {},
-		"endpointReqHeaderKeys": null,
 		"endpointResponse": {},
-		"endpointResponseString": "",
 		"endpointResHeaders": {},
-		"endpointResHeaderKeys": null,
-		"clientStubs": [
-			{
-				"clientId": "bar",
+		"clientTestFixtures": {
+			"bar::argNotStruct": {
+				"clientID": "bar",
 				"clientMethod": "argNotStruct",
 				"clientRequest": {
 					"request": "foo"
 				},
-				"clientRequestString": "",
 				"clientReqHeaders": {},
-				"clientReqHeaderKeys": null,
 				"clientResponse": {},
-				"clientResponseString": "",
-				"clientResHeaders": {},
-				"clientResHeaderKeys": null
+				"clientResHeaders": {}
 			}
-		],
+		},
 		"testServiceName": "example-gateway"
 	}
-]
+}

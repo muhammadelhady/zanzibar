@@ -1,23 +1,62 @@
 {
 	"endpointType": "http",
-	"endpointId": "bar",
-	"handleId": "normal",
+	"endpointID": "bar",
+	"handleID": "normal",
 	"thriftFile": "endpoints/bar/bar.thrift",
 	"thriftFileSha": "{{placeholder}}",
 	"thriftMethodName": "Bar::normal",
 	"workflowType": "httpClient",
 	"clientID": "bar",
 	"clientMethod": "Normal",
-	"testFixtures": [],
+	"testFixtures": {
+		"successfulRequest": {
+			"testName": "successfulRequest",
+			"testServiceName": "example-gateway",
+			"endpointID": "bar",
+			"handleID": "normal",
+			"endpointRequest": {
+				"request": {
+					"stringField": "foo",
+					"boolField": true
+				}
+			},
+			"endpointReqHeaders": {},
+			"endpointResponse": {},
+			"endpointResHeaders": {},
+			"clientTestFixtures": {
+				"bar::normal": {
+					"clientID": "bar",
+					"clientMethod": "normal",
+					"clientRequest": {
+						"request": {
+							"stringField": "foo",
+							"boolField": true
+						}
+					},
+					"clientReqHeaders": {},
+					"clientResponse": {
+						"stringField": "foo",
+						"intWithRange": 0,
+						"intWithoutRange": 1,
+						"mapIntWithRange": {},
+						"mapIntWithoutRange": {}
+					},
+					"clientResHeaders": {}
+				}
+			}
+		}
+	},
 	"middlewares": [
-		{"name" : "example",
-		 "options" : {
-			 "Foo": "\"test\""
-		 }
+		{
+			"name": "example",
+			"options": {
+				"Foo": "\"test\""
+			}
 		},
-		{"name" : "logger"}
-
-		],
+		{
+			"name": "logger"
+		}
+	],
 	"reqHeaderMap": {},
 	"resHeaderMap": {}
 }

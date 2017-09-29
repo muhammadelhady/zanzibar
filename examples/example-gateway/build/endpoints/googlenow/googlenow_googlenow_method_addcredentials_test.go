@@ -80,8 +80,10 @@ func TestAddCredentialsSuccessfulRequestOKResponse(t *testing.T) {
 
 		w.WriteHeader(202)
 
+		clientResponseString := `{"status":"200 OK"}`
+
 		// TODO(zw): generate client response.
-		if _, err := w.Write([]byte(`{"status":"200 OK"}`)); err != nil {
+		if _, err := w.Write([]byte(clientResponseString)); err != nil {
 			t.Fatal("can't write fake response")
 		}
 		counter++
@@ -95,11 +97,13 @@ func TestAddCredentialsSuccessfulRequestOKResponse(t *testing.T) {
 	headers["X-Token"] = "test-token"
 	headers["X-Uuid"] = "test-uuid"
 
+	endpointRequestString := `{"authCode":"test"}`
+
 	res, err := gateway.MakeRequest(
 		"POST",
 		"/googlenow/add-credentials",
 		headers,
-		bytes.NewReader([]byte(`{"authCode":"test"}`)),
+		bytes.NewReader([]byte(endpointRequestString)),
 	)
 	if !assert.NoError(t, err, "got http error") {
 		return

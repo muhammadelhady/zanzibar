@@ -64,7 +64,10 @@ func TestCompareSuccessfulRequestOKResponse(t *testing.T) {
 		var resHeaders map[string]string
 
 		var res clientsBazBase.BazResponse
-		err := json.Unmarshal([]byte(`{"message":"different"}`), &res)
+
+		clientResponseString := `{"message":"different"}`
+
+		err := json.Unmarshal([]byte(clientResponseString), &res)
 		if err != nil {
 			t.Fatal("cant't unmarshal client response json to client response struct")
 			return nil, resHeaders, err
@@ -80,11 +83,13 @@ func TestCompareSuccessfulRequestOKResponse(t *testing.T) {
 
 	headers := map[string]string{}
 
+	endpointRequestString := `{"arg1":{"b1":true,"i3":42,"s2":"hello"},"arg2":{"b1":true,"i3":42,"s2":"hola"}}`
+
 	res, err := gateway.MakeRequest(
 		"POST",
 		"/baz/compare",
 		headers,
-		bytes.NewReader([]byte(`{"arg1":{"b1":true,"i3":42,"s2":"hello"},"arg2":{"b1":true,"i3":42,"s2":"hola"}}`)),
+		bytes.NewReader([]byte(endpointRequestString)),
 	)
 	if !assert.NoError(t, err, "got http error") {
 		return
@@ -98,5 +103,5 @@ func TestCompareSuccessfulRequestOKResponse(t *testing.T) {
 
 	assert.Equal(t, 1, testcompareCounter)
 	assert.Equal(t, 200, res.StatusCode)
-	assert.Equal(t, `{"message":"different"}`, string(data))
+	assert.Equal(t, []byte(`{"message":"different"}`), data)
 }

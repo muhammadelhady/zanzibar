@@ -1,14 +1,14 @@
 {
 	"endpointType": "http",
-	"endpointId": "bar",
-	"handleId": "argWithHeaders",
+	"endpointID": "bar",
+	"handleID": "argWithHeaders",
 	"thriftFile": "endpoints/bar/bar.thrift",
 	"thriftFileSha": "{{placeholder}}",
 	"thriftMethodName": "Bar::argWithHeaders",
 	"workflowType": "httpClient",
 	"clientID": "bar",
 	"clientMethod": "ArgWithHeaders",
-	"testFixtures": [],
+	"testFixtures": {},
 	"middlewares": [],
 	"reqHeaderMap": {
 		"X-Uuid": "X-Uuid"

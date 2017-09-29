@@ -1,14 +1,35 @@
 {
 	"endpointType": "http",
-	"endpointId": "baz",
-	"handleId": "sillyNoop",
+	"endpointID": "baz",
+	"handleID": "sillyNoop",
 	"thriftFile": "endpoints/baz/baz.thrift",
 	"thriftFileSha": "{{placeholder}}",
 	"thriftMethodName": "SimpleService::sillyNoop",
 	"workflowType": "tchannelClient",
 	"clientID": "baz",
 	"clientMethod": "DeliberateDiffNoop",
-	"testFixtures": [],
+	"testFixtures": {
+		"successfulRequest": {
+			"testName": "successfulRequest",
+			"testServiceName": "example-gateway",
+			"endpointID": "baz",
+			"handleID": "sillyNoop",
+			"endpointRequest": {},
+			"endpointReqHeaders": {},
+			"endpointResponse": {},
+			"endpointResHeaders": {},
+			"clientTestFixtures": {
+				"baz::DeliberateDiffNoop": {
+					"clientID": "baz",
+					"clientMethod": "DeliberateDiffNoop",
+					"clientRequest": {},
+					"clientReqHeaders": {},
+					"clientResponse": {},
+					"clientResHeaders": {}
+				}
+			}
+		}
+	},
 	"middlewares": [],
 	"reqHeaderMap": {},
 	"resHeaderMap": {}

@@ -73,8 +73,10 @@ func TestMissingArgSuccessfulRequestOKResponse(t *testing.T) {
 
 		w.WriteHeader(200)
 
+		clientResponseString := `{"intWithRange":0,"intWithoutRange":1,"mapIntWithRange":{},"mapIntWithoutRange":{},"stringField":"foo"}`
+
 		// TODO(zw): generate client response.
-		if _, err := w.Write([]byte(`{"intWithRange":0,"intWithoutRange":1,"mapIntWithRange":{},"mapIntWithoutRange":{},"stringField":"foo"}`)); err != nil {
+		if _, err := w.Write([]byte(clientResponseString)); err != nil {
 			t.Fatal("can't write fake response")
 		}
 		counter++
@@ -86,11 +88,13 @@ func TestMissingArgSuccessfulRequestOKResponse(t *testing.T) {
 
 	headers := map[string]string{}
 
+	endpointRequestString := `{}`
+
 	res, err := gateway.MakeRequest(
 		"GET",
 		"/bar/missing-arg-path",
 		headers,
-		bytes.NewReader([]byte(`{}`)),
+		bytes.NewReader([]byte(endpointRequestString)),
 	)
 	if !assert.NoError(t, err, "got http error") {
 		return

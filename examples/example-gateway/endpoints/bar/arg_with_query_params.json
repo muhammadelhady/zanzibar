@@ -1,14 +1,14 @@
 {
 	"endpointType": "http",
-	"endpointId": "bar",
-	"handleId": "argWithQueryParams",
+	"endpointID": "bar",
+	"handleID": "argWithQueryParams",
 	"thriftFile": "endpoints/bar/bar.thrift",
 	"thriftFileSha": "{{placeholder}}",
 	"thriftMethodName": "Bar::argWithQueryParams",
 	"workflowType": "httpClient",
 	"clientID": "bar",
 	"clientMethod": "ArgWithQueryParams",
-	"testFixtures": [],
+	"testFixtures": {},
 	"middlewares": [],
 	"reqHeaderMap": {},
 	"resHeaderMap": {}

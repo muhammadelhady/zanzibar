@@ -22,8 +22,6 @@ package codegen
 
 import (
 	"encoding/json"
-	"io/ioutil"
-	"os"
 	"path/filepath"
 	"sort"
 	"strings"
@@ -65,44 +63,46 @@ type StructMeta struct {
 type EndpointTestMeta struct {
 	Instance           *ModuleInstance
 	Method             *MethodSpec
-	TestStubs          []TestStub
+	TestFixtures       map[string]*EndpointTestFixture `json:"testFixtures"`
 	ClientName         string
 	ClientID           string
 	RelativePathToRoot string
 	IncludedPackages   []GoPackageImport
 }
 
-// TestStub saves stubbed requests/responses for an endpoint test.
-type TestStub struct {
-	TestName               string
-	EndpointID             string
-	HandlerID              string
-	EndpointRequest        map[string]interface{} // Json blob
-	EndpointRequestString  string
-	EndpointReqHeaders     map[string]string      // Json blob
-	EndpointReqHeaderKeys  []string               // To keep in canonical order
-	EndpointResponse       map[string]interface{} // Json blob
-	EndpointResponseString string
-	EndpointResHeaders     map[string]string // Json blob
-	EndpointResHeaderKeys  []string          // To keep in canonical order
+// FixtureBlob is map[string]interface{} that implements default string
+// used for headers and (http | tchannel) request/response
+type FixtureBlob map[string]interface{}
 
-	ClientStubs []ClientStub
-
-	TestServiceName string // The service module that mounts the endpoint
+// String convert map[string]interface{} to string
+func (fb *FixtureBlob) String() string {
+	if str, err := json.Marshal(fb); err == nil {
+		return string(str)
+	}
+	return ""
 }
 
-// ClientStub saves stubbed client request/response for an endpoint test.
-type ClientStub struct {
-	ClientID             string
-	ClientMethod         string
-	ClientRequest        map[string]interface{} // Json blob
-	ClientRequestString  string
-	ClientReqHeaders     map[string]string      // Json blob
-	ClientReqHeaderKeys  []string               // To keep in canonical order
-	ClientResponse       map[string]interface{} // Json blob
-	ClientResponseString string
-	ClientResHeaders     map[string]string // Json blob
-	ClientResHeaderKeys  []string          // To keep in canonical order
+// EndpointTestFixture saves mocked requests/responses for an endpoint test.
+type EndpointTestFixture struct {
+	TestName           string                        `json:"testName"`
+	EndpointID         string                        `json:"endpointID"`
+	HandleID           string                        `json:"handleID"`
+	EndpointRequest    FixtureBlob                   `json:"endpointRequest"`
+	EndpointReqHeaders FixtureBlob                   `json:"endpointReqHeaders"`
+	EndpointResponse   FixtureBlob                   `json:"endpointResponse"`
+	EndpointResHeaders FixtureBlob                   `json:"endpointResHeaders"`
+	ClientTestFixtures map[string]*ClientTestFixture `json:"clientTestFixtures"`
+	TestServiceName    string                        `json:"testServiceName"` // The service module that mounts the endpoint
+}
+
+// ClientTestFixture saves mocked client request/response for an endpoint test.
+type ClientTestFixture struct {
+	ClientID         string      `json:"clientID"`
+	ClientMethod     string      `json:"clientMethod"`
+	ClientRequest    FixtureBlob `json:"clientRequest"`
+	ClientReqHeaders FixtureBlob `json:"clientReqHeaders"`
+	ClientResponse   FixtureBlob `json:"clientResponse"`
+	ClientResHeaders FixtureBlob `json:"clientResHeaders"`
 }
 
 // NewDefaultModuleSystem creates a fresh instance of the default zanzibar
@@ -784,6 +784,9 @@ func (g *EndpointGenerator) generateEndpointFile(
 func (g *EndpointGenerator) generateEndpointTestFile(
 	e *EndpointSpec, instance *ModuleInstance, out map[string][]byte,
 ) error {
+	if len(e.TestFixtures) < 1 { // skip tests if testFixtures is missing
+		return nil
+	}
 	m := e.ModuleSpec
 	methodName := e.ThriftMethodName
 	serviceName := e.ThriftServiceName
@@ -800,99 +803,6 @@ func (g *EndpointGenerator) generateEndpointTestFile(
 		)
 	}
 
-	// Read test configurations
-	testConfigPath := e.EndpointTestConfigPath()
-
-	var testStubs []TestStub
-	file, err := ioutil.ReadFile(testConfigPath)
-	if err != nil {
-		// If the test file does not exist then skip test generation.
-		if os.IsNotExist(err) {
-			return nil
-		}
-
-		return errors.Wrapf(err,
-			"Error reading endpoint test config for service %q, method %q",
-			serviceName, method.Name)
-	}
-	err = json.Unmarshal(file, &testStubs)
-	if err != nil {
-		return errors.Wrapf(err,
-			"Error parsing test config file.")
-	}
-
-	for i := 0; i < len(testStubs); i++ {
-		testStub := &testStubs[i]
-		testStub.EndpointRequestString, err = jsonMarshal(
-			testStub.EndpointRequest)
-		if err != nil {
-			return errors.Wrapf(err,
-				"Error parsing JSON in test config.")
-		}
-		testStub.EndpointResponseString, err = jsonMarshal(
-			testStub.EndpointResponse)
-		if err != nil {
-			return errors.Wrapf(err,
-				"Error parsing JSON in test config.")
-		}
-		for j := 0; j < len(testStub.ClientStubs); j++ {
-			clientStub := &testStub.ClientStubs[j]
-			clientStub.ClientRequestString, err = jsonMarshal(
-				clientStub.ClientRequest)
-			if err != nil {
-				return errors.Wrapf(err,
-					"Error parsing JSON in test config.")
-			}
-			clientStub.ClientResponseString, err = jsonMarshal(
-				clientStub.ClientResponse)
-			if err != nil {
-				return errors.Wrapf(err,
-					"Error parsing JSON in test config.")
-			}
-			// Build canonical key list to keep templates in order
-			// when comparing to golden files.
-			clientStub.ClientReqHeaderKeys = make(
-				[]string,
-				len(clientStub.ClientReqHeaders))
-			i := 0
-			for k := range clientStub.ClientReqHeaders {
-				clientStub.ClientReqHeaderKeys[i] = k
-				i++
-			}
-			sort.Strings(clientStub.ClientReqHeaderKeys)
-			clientStub.ClientResHeaderKeys = make(
-				[]string,
-				len(clientStub.ClientResHeaders))
-			i = 0
-			for k := range clientStub.ClientResHeaders {
-				clientStub.ClientResHeaderKeys[i] = k
-				i++
-			}
-			sort.Strings(clientStub.ClientResHeaderKeys)
-
-		}
-		// Build canonical key list to keep templates in order
-		// when comparing to golden files.
-		testStub.EndpointReqHeaderKeys = make(
-			[]string,
-			len(testStub.EndpointReqHeaders))
-		i := 0
-		for k := range testStub.EndpointReqHeaders {
-			testStub.EndpointReqHeaderKeys[i] = k
-			i++
-		}
-		sort.Strings(testStub.EndpointReqHeaderKeys)
-		testStub.EndpointResHeaderKeys = make(
-			[]string,
-			len(testStub.EndpointResHeaders))
-		i = 0
-		for k := range testStub.EndpointResHeaders {
-			testStub.EndpointResHeaderKeys[i] = k
-			i++
-		}
-		sort.Strings(testStub.EndpointResHeaderKeys)
-	}
-
 	endpointDirectory := filepath.Join(
 		g.packageHelper.CodeGenTargetPath(),
 		instance.Directory,
@@ -904,10 +814,10 @@ func (g *EndpointGenerator) generateEndpointTestFile(
 	}
 
 	meta := &EndpointTestMeta{
-		Instance:  instance,
-		Method:    method,
-		TestStubs: testStubs,
-		ClientID:  e.ClientSpec.ClientID,
+		Instance:     instance,
+		Method:       method,
+		TestFixtures: e.TestFixtures,
+		ClientID:     e.ClientSpec.ClientID,
 	}
 
 	relativePath, err := filepath.Rel(

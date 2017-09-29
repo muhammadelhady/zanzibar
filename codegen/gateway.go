@@ -48,8 +48,8 @@ var mandatoryCustomClientFields = []string{
 }
 var mandatoryEndpointFields = []string{
 	"endpointType",
-	"endpointId",
-	"handleId",
+	"endpointID",
+	"handleID",
 	"thriftFile",
 	"thriftFileSha",
 	"thriftMethodName",
@@ -377,8 +377,7 @@ type EndpointSpec struct {
 	// ThriftServiceName, which thrift service to use.
 	ThriftServiceName string
 	// TestFixtures, meta data to generate tests,
-	// TODO figure out struct type
-	TestFixtures []interface{}
+	TestFixtures map[string]*EndpointTestFixture
 	// Middlewares, meta data to add middlewares,
 	Middlewares []MiddlewareSpec
 	// ReqTransforms, a map from client request fields to endpoint
@@ -547,8 +546,8 @@ func NewEndpointSpec(
 		GoFolderName:       goFolderName,
 		GoPackageName:      goPackageName,
 		EndpointType:       endpointConfigObj["endpointType"].(string),
-		EndpointID:         endpointConfigObj["endpointId"].(string),
-		HandleID:           endpointConfigObj["handleId"].(string),
+		EndpointID:         endpointConfigObj["endpointID"].(string),
+		HandleID:           endpointConfigObj["handleID"].(string),
 		ThriftFile:         thriftFile,
 		ThriftServiceName:  parts[0],
 		ThriftMethodName:   parts[1],
@@ -564,12 +563,33 @@ func NewEndpointSpec(
 	return augmentHTTPEndpointSpec(espec, endpointConfigObj, midSpecs)
 }
 
+func reloadTestFixtures(espec *EndpointSpec, endpointConfigObj map[string]interface{}) (*EndpointSpec, error) {
+	field, ok := endpointConfigObj["testFixtures"]
+	if !ok {
+		return espec, nil
+	}
+	testFixturesRaw, err := json.Marshal(field)
+	if err != nil {
+		return espec, err
+	}
+	var ret map[string]*EndpointTestFixture
+	err = json.Unmarshal(testFixturesRaw, &ret)
+	if err != nil {
+		return espec, err
+	}
+	espec.TestFixtures = ret
+	return espec, nil
+}
+
 func augmentHTTPEndpointSpec(
 	espec *EndpointSpec,
 	endpointConfigObj map[string]interface{},
 	midSpecs map[string]*MiddlewareSpec,
 ) (*EndpointSpec, error) {
-	espec.TestFixtures = endpointConfigObj["testFixtures"].([]interface{})
+	espec, err := reloadTestFixtures(espec, endpointConfigObj)
+	if err != nil {
+		return nil, errors.Errorf("Unable to parse test cases")
+	}
 
 	endpointMids, ok := endpointConfigObj["middlewares"].([]interface{})
 	if !ok {

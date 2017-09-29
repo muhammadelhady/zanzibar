@@ -1,18 +1,18 @@
 {
-	"endpointId": "baz",
+	"endpointID": "baz",
 	"endpointType": "http",
-	"handleId": "call",
+	"handleID": "call",
 	"thriftFile": "endpoints/baz/baz.thrift",
 	"thriftFileSha": "{{placeholder}}",
 	"thriftMethodName": "SimpleService::call",
 	"workflowType": "tchannelClient",
 	"clientID": "baz",
 	"clientMethod": "Call",
-	"testFixtures": [
-		{
+	"testFixtures": {
+		"successfulRequest": {
 			"testName": "successfulRequest",
-			"endpointId": "baz",
-			"handlerId": "call",
+			"endpointID": "baz",
+			"handleID": "call",
 			"endpointRequest": {
 				"arg": {
 					"b1": true,
@@ -20,33 +20,25 @@
 					"s2": "hello"
 				}
 			},
-			"endpointRequestString": "",
 			"endpointReqHeaders": {
 				"x-token": "token",
 				"x-uuid": "uuid"
 			},
-			"endpointReqHeaderKeys": null,
 			"endpointResponse": {},
-			"endpointResponseString": "",
 			"endpointResHeaders": {},
-			"endpointResHeaderKeys": null,
-			"clientStubs": [
-				{
-					"clientId": "baz",
+			"clientTestFixtures": {
+				"baz::call": {
+					"clientID": "baz",
 					"clientMethod": "call",
 					"clientRequest": {},
-					"clientRequestString": "",
 					"clientReqHeaders": {},
-					"clientReqHeaderKeys": null,
 					"clientResponse": {},
-					"clientResponseString": "",
-					"clientResHeaders": {},
-					"clientResHeaderKeys": null
+					"clientResHeaders": {}
 				}
-			],
+			},
 			"testServiceName": "example-gateway"
 		}
-	],
+	},
 	"middlewares": [],
 	"reqHeaderMap": {
 		"X-Token": "X-Token",

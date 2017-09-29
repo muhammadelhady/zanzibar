@@ -1,15 +1,42 @@
 {
 	"endpointType": "http",
-	"endpointId": "bar",
-	"handleId": "missingArg",
+	"endpointID": "bar",
+	"handleID": "missingArg",
 	"thriftFile": "endpoints/bar/bar.thrift",
 	"thriftFileSha": "{{placeholder}}",
 	"thriftMethodName": "Bar::missingArg",
 	"workflowType": "httpClient",
 	"clientID": "bar",
 	"clientMethod": "MissingArg",
-	"testFixtures": [],
+	"testFixtures": {
+		"successfulRequest": {
+			"testName": "successfulRequest",
+			"testServiceName": "example-gateway",
+			"endpointID": "bar",
+			"handleID": "missingArg",
+			"endpointRequest": {},
+			"endpointReqHeaders": {},
+			"endpointResponse": {},
+			"endpointResHeaders": {},
+			"clientTestFixtures": {
+				"bar::missingArg": {
+					"clientID": "bar",
+					"clientMethod": "missingArg",
+					"clientRequest": {},
+					"clientReqHeaders": {},
+					"clientResponse": {
+						"stringField": "foo",
+						"intWithRange": 0,
+						"intWithoutRange": 1,
+						"mapIntWithRange": {},
+						"mapIntWithoutRange": {}
+					},
+					"clientResHeaders": {}
+				}
+			}
+		}
+	},
 	"middlewares": [],
 	"reqHeaderMap": {},
-	"resHeaderMap": {}	
+	"resHeaderMap": {}
 }
