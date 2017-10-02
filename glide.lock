@@ -1,12 +1,10 @@
-hash: d6512ee48265f77a1c34516c5ffb73828ccb937533a56454568e6ed2211ba607
-updated: 2017-09-20T11:55:50.9196227-07:00
+hash: 47c939a7a5f1fb744c727dc55df7c8eb0fc5a2c56a095cf2df7df8755d1ffbdd
+updated: 2017-10-02T15:05:27.586907969-07:00
 imports:
 - name: github.com/anmitsu/go-shlex
   version: 648efa622239a2f6ff949fed78ee37b48d499ba4
 - name: github.com/apache/thrift
   version: 9549b25c77587b29be4e0b5c258221a4ed85d37a
-  repo: git://git.apache.org/thrift.git
-  vcs: git
   subpackages:
   - lib/go/thrift
 - name: github.com/buger/jsonparser
@@ -61,7 +59,7 @@ imports:
 - name: github.com/uber-go/atomic
   version: e682c1008ac17bf26d2e4b5ad6cdd08520ed0b22
 - name: github.com/uber-go/tally
-  version: be9e53c77349ae2dd4b8c03a6dc20ed9a88b9927
+  version: 95078a8f10668bd1fa73ae46761cdc58d25436b8
   subpackages:
   - m3
   - m3/customtransports
@@ -124,7 +122,7 @@ imports:
   - version
   - wire
 - name: go.uber.org/zap
-  version: 3216c4c73e8ebbafff73c456dd27143f4a7c1f94
+  version: 35aad584952c3e7020db7b839f6b102de6271f89
   subpackages:
   - buffer
   - internal/bufferpool
@@ -133,7 +131,7 @@ imports:
   - zapcore
   - zaptest/observer
 - name: golang.org/x/net
-  version: 8351a756f30f1297fe94bbf4b767ec589c6ea6d0
+  version: 0744d001aa8470aaa53df28d32e5ceeb8af9bd70
   subpackages:
   - context
 testImports: []
